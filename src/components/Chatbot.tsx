@@ -1,9 +1,6 @@
-import { useState } from 'react';
-import { MessageCircle, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Chatbot = () => {
-  const [isOpen, setIsOpen] = useState(false);
 
   const socialLinks = [
     {
@@ -40,7 +37,6 @@ const Chatbot = () => {
 
   const handleLinkClick = (url: string) => {
     window.open(url, '_blank', 'noopener,noreferrer');
-    setIsOpen(false);
   };
 
   return (
