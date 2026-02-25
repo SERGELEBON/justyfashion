@@ -320,10 +320,10 @@ const Collections = () => {
 
                 {/* Price */}
                 <div className="flex items-center gap-3 mt-3">
-                  <span className="font-semibold text-lg">${product.price}</span>
+                  <span className="font-semibold text-lg">GHC {product.price}</span>
                   {product.originalPrice && (
                     <span className="text-muted-foreground line-through">
-                      ${product.originalPrice}
+                      GHC {product.originalPrice}
                     </span>
                   )}
                 </div>

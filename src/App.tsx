@@ -7,6 +7,7 @@ import Collections from './pages/Collections';
 import Lookbook from './pages/Lookbook';
 import Atelier from './pages/Atelier';
 import Contact from './pages/Contact';
+import Cart from './pages/Cart';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="lookbook" element={<Lookbook />} />
             <Route path="atelier" element={<Atelier />} />
             <Route path="contact" element={<Contact />} />
+            <Route path="cart" element={<Cart />} />
           </Route>
         </Routes>
       </div>
