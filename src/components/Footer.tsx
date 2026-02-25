@@ -32,11 +32,28 @@ const Footer = () => {
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    
+
+    // Create email body for newsletter subscription
+    const emailBody = `
+Newsletter Subscription Request
+
+Email: ${email}
+Date: ${new Date().toLocaleDateString()}
+Time: ${new Date().toLocaleTimeString()}
+
+Please add this email address to the Justy Fashion newsletter mailing list.
+    `.trim();
+
+    // Create mailto link
+    const mailtoLink = `mailto:justyfashion1@gmail.com?subject=${encodeURIComponent('Newsletter Subscription - ' + email)}&body=${encodeURIComponent(emailBody)}`;
+
+    // Open email client
+    window.open(mailtoLink, '_blank');
+
     toast.success('Subscribed!', {
-      description: 'Welcome to the Justy Fashion newsletter.',
+      description: 'Newsletter subscription email sent to justyfashion1@gmail.com',
     });
-    
+
     setEmail('');
   };
 

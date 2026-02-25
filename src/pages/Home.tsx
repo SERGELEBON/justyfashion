@@ -11,53 +11,69 @@ gsap.registerPlugin(ScrollTrigger);
 const featuredProducts = [
   {
     id: 1,
-    name: 'African Print Maxi Dress',
-    price: 180,
-    originalPrice: 250,
-    image: '/lookbook_01.jpg',
+    name: 'Elegant Evening Dress',
+    price: 280,
+    originalPrice: 350,
+    image: '/jfcouturefemme/imf11.jpg',
     category: 'Women',
     badge: 'Best Seller',
   },
   {
     id: 2,
-    name: 'Heritage Kente Suit',
-    price: 320,
-    image: '/lookbook_02.jpg',
+    name: 'Classic Tailored Suit',
+    price: 420,
+    image: '/jfcouture homme/imh15.jpg',
     category: 'Men',
     badge: 'New',
   },
   {
     id: 3,
-    name: 'Luxury Accessory Set',
-    price: 150,
-    originalPrice: 200,
-    image: '/lookbook_03.jpg',
-    category: 'Accessories',
+    name: 'Designer Casual Wear',
+    price: 180,
+    originalPrice: 230,
+    image: '/jfcouturefemme/imf17.jpg',
+    category: 'Women',
     badge: 'Sale',
   },
   {
     id: 4,
-    name: 'Couple Matching Outfit',
-    price: 450,
-    image: '/lookbook_04.jpg',
+    name: 'Romantic Couple Set',
+    price: 650,
+    image: '/couple/couple1.jpg',
     category: 'Couples',
-    badge: null,
+    badge: 'Premium',
   },
   {
     id: 5,
-    name: 'Embroidered Evening Gown',
-    price: 280,
-    image: '/lookbook_05.jpg',
+    name: 'Formal Business Attire',
+    price: 380,
+    image: '/jfcouture homme/imh21.jpg',
+    category: 'Men',
+    badge: null,
+  },
+  {
+    id: 6,
+    name: 'Luxury Gown Collection',
+    price: 320,
+    image: '/jfcouturefemme/imf25.jpg',
     category: 'Women',
     badge: 'Premium',
   },
   {
-    id: 6,
-    name: 'Patterned Blazer',
-    price: 220,
-    image: '/lookbook_06.jpg',
-    category: 'Men',
+    id: 7,
+    name: 'Matching Couple Outfit',
+    price: 580,
+    image: '/couple/couple.jpg',
+    category: 'Couples',
     badge: null,
+  },
+  {
+    id: 8,
+    name: 'Executive Style Suit',
+    price: 450,
+    image: '/jfcouture homme/imgh33.jpg',
+    category: 'Men',
+    badge: 'New',
   },
 ];
 
@@ -229,10 +245,10 @@ const Home = () => {
                           {product.name}
                         </h3>
                         <div className="flex items-center gap-2 mt-2">
-                          <span className="font-semibold">${product.price}</span>
+                          <span className="font-semibold">GHC {product.price}</span>
                           {product.originalPrice && (
                             <span className="text-muted-foreground line-through text-sm">
-                              ${product.originalPrice}
+                              GHC {product.originalPrice}
                             </span>
                           )}
                         </div>
@@ -287,7 +303,7 @@ const Home = () => {
             {/* Women */}
             <Link to="/collections" className="group relative aspect-[4/5] overflow-hidden">
               <img
-                src="/lookbook_05.jpg"
+                src="/jfcouturefemme/imf14.jpg"
                 alt="Women Collection"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -304,7 +320,7 @@ const Home = () => {
             {/* Men */}
             <Link to="/collections" className="group relative aspect-[4/5] overflow-hidden">
               <img
-                src="/lookbook_06.jpg"
+                src="/jfcouture homme/imh16.jpg"
                 alt="Men Collection"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -318,17 +334,17 @@ const Home = () => {
               </div>
             </Link>
 
-            {/* Accessories */}
+            {/* Couples */}
             <Link to="/collections" className="group relative aspect-[4/5] overflow-hidden">
               <img
-                src="/lookbook_03.jpg"
-                alt="Accessories Collection"
+                src="/couple/couple1.jpg"
+                alt="Couples Collection"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6">
                 <span className="label-mono text-white/70 mb-2 block">Collection</span>
-                <h3 className="font-display font-bold text-2xl text-white">Accessories</h3>
+                <h3 className="font-display font-bold text-2xl text-white">Couples</h3>
                 <span className="cta-link text-white mt-2 !text-xs">
                   Shop Now <ArrowRight className="w-3 h-3" />
                 </span>
@@ -356,6 +372,77 @@ const Home = () => {
                 <p className="text-muted-foreground text-sm">{feature.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 lg:py-28 bg-secondary/20">
+        <div className="w-full px-4 sm:px-6 lg:px-12">
+          <div className="text-center mb-12">
+            <span className="label-mono text-[#FF6B00] mb-2 block">What Our Clients Say</span>
+            <h2 className="headline-md">Testimonials</h2>
+            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+              Discover why our customers love Justy Fashion and trust us with their style journey.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Testimonial 1 */}
+            <div className="bg-background p-6 lg:p-8 border border-border hover:border-[#FF6B00]/30 transition-colors">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
+                  <img
+                    src="/testimony/testimony1.jpg"
+                    alt="Customer testimonial"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <div className="flex items-center gap-1 mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-[#FF6B00] text-[#FF6B00]" />
+                    ))}
+                  </div>
+                  <h3 className="font-semibold">Exceptional Quality</h3>
+                </div>
+              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                "The attention to detail and quality of fabrics is outstanding. Justy Fashion delivered exactly what I envisioned for my special occasion. The fit was perfect and the craftsmanship is truly exceptional."
+              </p>
+              <div className="mt-4 pt-4 border-t border-border">
+                <p className="font-medium text-sm">Sarah Mensah</p>
+                <p className="text-xs text-muted-foreground">Bride & Fashion Enthusiast</p>
+              </div>
+            </div>
+
+            {/* Testimonial 2 */}
+            <div className="bg-background p-6 lg:p-8 border border-border hover:border-[#FF6B00]/30 transition-colors">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
+                  <img
+                    src="/testimony/testimony2.jpg"
+                    alt="Customer testimonial"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <div className="flex items-center gap-1 mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-[#FF6B00] text-[#FF6B00]" />
+                    ))}
+                  </div>
+                  <h3 className="font-semibold">Professional Service</h3>
+                </div>
+              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                "From consultation to final delivery, the team was professional and attentive to every detail. My custom suit fits perfectly and I receive compliments every time I wear it. Highly recommended!"
+              </p>
+              <div className="mt-4 pt-4 border-t border-border">
+                <p className="font-medium text-sm">Kwame Asante</p>
+                <p className="text-xs text-muted-foreground">Business Executive</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

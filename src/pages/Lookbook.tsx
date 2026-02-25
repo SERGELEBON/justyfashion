@@ -3,14 +3,27 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Instagram, Heart } from 'lucide-react';
 
 const lookbookImages = [
-  { id: 1, src: '/lookbook_01.jpg', title: 'Royal Elegance', category: 'Women', likes: 234 },
-  { id: 2, src: '/lookbook_02.jpg', title: 'Heritage Suit', category: 'Men', likes: 189 },
-  { id: 3, src: '/lookbook_03.jpg', title: 'Luxury Collection', category: 'Accessories', likes: 156 },
-  { id: 4, src: '/lookbook_04.jpg', title: 'Couple Set', category: 'Couples', likes: 312 },
-  { id: 5, src: '/lookbook_05.jpg', title: 'Embroidered Gown', category: 'Women', likes: 278 },
-  { id: 6, src: '/lookbook_06.jpg', title: 'Patterned Blazer', category: 'Men', likes: 145 },
-  { id: 7, src: '/lookbook_07.jpg', title: 'Evening Silk', category: 'Women', likes: 201 },
-  { id: 8, src: '/lookbook_08.jpg', title: 'Kente Textile', category: 'Accessories', likes: 167 },
+  // Women Collection
+  { id: 1, src: '/jfcouturefemme/f1.jpg', title: 'Elegant Evening Gown', category: 'Women', likes: 234 },
+  { id: 2, src: '/jfcouturefemme/imf11.jpg', title: 'Contemporary Design', category: 'Women', likes: 189 },
+  { id: 3, src: '/jfcouturefemme/imf14.jpg', title: 'Sophisticated Style', category: 'Women', likes: 278 },
+  { id: 4, src: '/jfcouturefemme/imf17.jpg', title: 'Designer Casual', category: 'Women', likes: 156 },
+  { id: 5, src: '/jfcouturefemme/imf20.jpg', title: 'Luxury Formal', category: 'Women', likes: 201 },
+  { id: 6, src: '/jfcouturefemme/imf25.jpg', title: 'Exclusive Collection', category: 'Women', likes: 167 },
+  { id: 7, src: '/jfcouturefemme/img36.jpg', title: 'Artistic Expression', category: 'Women', likes: 192 },
+  { id: 8, src: '/jfcouturefemme/imgf32.jpg', title: 'Modern Elegance', category: 'Women', likes: 145 },
+  // Men Collection
+  { id: 9, src: '/jfcouture homme/h1.jpg', title: 'Executive Style', category: 'Men', likes: 312 },
+  { id: 10, src: '/jfcouture homme/h2.jpg', title: 'Classic Tailoring', category: 'Men', likes: 198 },
+  { id: 11, src: '/jfcouture homme/imh12.jpg', title: 'Luxury Formal', category: 'Men', likes: 267 },
+  { id: 12, src: '/jfcouture homme/imh15.jpg', title: 'Traditional Wear', category: 'Men', likes: 175 },
+  { id: 13, src: '/jfcouture homme/imh18.jpg', title: 'Evening Sophistication', category: 'Men', likes: 223 },
+  { id: 14, src: '/jfcouture homme/imgh33.jpg', title: 'Business Attire', category: 'Men', likes: 154 },
+  { id: 15, src: '/jfcouture homme/img37.jpg', title: 'Contemporary Cut', category: 'Men', likes: 189 },
+  { id: 16, src: '/jfcouture homme/imgh40.jpg', title: 'Premium Collection', category: 'Men', likes: 142 },
+  // Couples Collection
+  { id: 17, src: '/couple/couple.jpg', title: 'Romantic Wedding Set', category: 'Couples', likes: 456 },
+  { id: 18, src: '/couple/couple1.jpg', title: 'Matching Formal Attire', category: 'Couples', likes: 389 },
 ];
 
 const filters = [
@@ -18,7 +31,6 @@ const filters = [
   { id: 'women', label: 'Women' },
   { id: 'men', label: 'Men' },
   { id: 'couples', label: 'Couples' },
-  { id: 'accessories', label: 'Accessories' },
 ];
 
 const Lookbook = () => {

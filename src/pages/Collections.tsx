@@ -1,7 +1,9 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Filter, Grid3X3, LayoutList, Heart, Eye, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useCart } from '@/contexts/CartContext';
+import { toast } from 'sonner';
 
 // Product categories
 const categories = [
@@ -9,7 +11,6 @@ const categories = [
   { id: 'women', label: 'Women' },
   { id: 'men', label: 'Men' },
   { id: 'couples', label: 'Couples' },
-  { id: 'accessories', label: 'Accessories' },
 ];
 
 // Sort options
@@ -22,12 +23,13 @@ const sortOptions = [
 
 // Products data
 const products = [
+  // Women Collection (10 photos)
   {
     id: 1,
-    name: 'African Print Maxi Dress - Royal Collection',
-    price: 180,
-    originalPrice: 250,
-    image: '/lookbook_01.jpg',
+    name: 'Elegant Evening Gown - Signature Collection',
+    price: 320,
+    originalPrice: 400,
+    image: '/jfcouturefemme/f1.jpg',
     category: 'women',
     badge: 'Best Seller',
     rating: 4.9,
@@ -35,74 +37,221 @@ const products = [
   },
   {
     id: 2,
-    name: 'Heritage Kente Suit - Premium Edition',
-    price: 320,
-    image: '/lookbook_02.jpg',
-    category: 'men',
+    name: 'Designer Cocktail Dress - Premium',
+    price: 280,
+    image: '/jfcouturefemme/im1.jpg',
+    category: 'women',
     badge: 'New',
     rating: 5.0,
     reviews: 15,
   },
   {
     id: 3,
-    name: 'Luxury Accessory Set - Gold Collection',
-    price: 150,
-    originalPrice: 200,
-    image: '/lookbook_03.jpg',
-    category: 'accessories',
+    name: 'African Print Maxi Dress - Royal',
+    price: 250,
+    originalPrice: 320,
+    image: '/jfcouturefemme/im3.jpg',
+    category: 'women',
     badge: 'Sale',
     rating: 4.7,
     reviews: 42,
   },
   {
     id: 4,
-    name: 'Couple Matching Outfit - Special Edition',
-    price: 450,
-    image: '/lookbook_04.jpg',
-    category: 'couples',
-    badge: null,
+    name: 'Luxury Formal Wear - Exclusive',
+    price: 380,
+    image: '/jfcouturefemme/im9.jpg',
+    category: 'women',
+    badge: 'Premium',
     rating: 4.8,
     reviews: 22,
   },
   {
     id: 5,
-    name: 'Embroidered Evening Gown - Deluxe',
-    price: 280,
-    image: '/lookbook_05.jpg',
+    name: 'Embroidered Traditional Dress',
+    price: 290,
+    image: '/jfcouturefemme/im10.jpg',
     category: 'women',
-    badge: 'Premium',
+    badge: null,
     rating: 4.9,
     reviews: 35,
   },
   {
     id: 6,
-    name: 'Patterned Blazer - Executive Style',
-    price: 220,
-    image: '/lookbook_06.jpg',
+    name: 'Contemporary Evening Gown',
+    price: 350,
+    image: '/jfcouturefemme/imf11.jpg',
+    category: 'women',
+    badge: 'New',
+    rating: 4.6,
+    reviews: 18,
+  },
+  {
+    id: 7,
+    name: 'Sophisticated Party Dress',
+    price: 260,
+    image: '/jfcouturefemme/imf14.jpg',
+    category: 'women',
+    badge: null,
+    rating: 5.0,
+    reviews: 12,
+  },
+  {
+    id: 8,
+    name: 'Designer Casual Wear',
+    price: 180,
+    originalPrice: 230,
+    image: '/jfcouturefemme/imf17.jpg',
+    category: 'women',
+    badge: 'Sale',
+    rating: 4.8,
+    reviews: 56,
+  },
+  {
+    id: 9,
+    name: 'Luxury Formal Collection',
+    price: 420,
+    image: '/jfcouturefemme/imf20.jpg',
+    category: 'women',
+    badge: 'Premium',
+    rating: 4.7,
+    reviews: 25,
+  },
+  {
+    id: 10,
+    name: 'Exclusive Evening Wear',
+    price: 380,
+    image: '/jfcouturefemme/imf23.jpg',
+    category: 'women',
+    badge: 'New',
+    rating: 4.9,
+    reviews: 19,
+  },
+  // Men Collection (10 photos)
+  {
+    id: 11,
+    name: 'Executive Business Suit - Premium',
+    price: 450,
+    originalPrice: 550,
+    image: '/jfcouture homme/h1.jpg',
+    category: 'men',
+    badge: 'Best Seller',
+    rating: 4.9,
+    reviews: 34,
+  },
+  {
+    id: 12,
+    name: 'Classic Tailored Suit',
+    price: 380,
+    image: '/jfcouture homme/h2.jpg',
+    category: 'men',
+    badge: 'New',
+    rating: 5.0,
+    reviews: 22,
+  },
+  {
+    id: 13,
+    name: 'Formal Wedding Attire',
+    price: 520,
+    image: '/jfcouture homme/h4.jpg',
+    category: 'men',
+    badge: 'Premium',
+    rating: 4.8,
+    reviews: 28,
+  },
+  {
+    id: 14,
+    name: 'Contemporary Business Wear',
+    price: 350,
+    originalPrice: 420,
+    image: '/jfcouture homme/im2.jpg',
+    category: 'men',
+    badge: 'Sale',
+    rating: 4.7,
+    reviews: 31,
+  },
+  {
+    id: 15,
+    name: 'Designer Casual Suit',
+    price: 280,
+    image: '/jfcouture homme/imh5.jpg',
     category: 'men',
     badge: null,
     rating: 4.6,
     reviews: 18,
   },
   {
-    id: 7,
-    name: 'Golden Silk Evening Dress',
-    price: 350,
-    image: '/lookbook_07.jpg',
-    category: 'women',
-    badge: 'New',
-    rating: 5.0,
-    reviews: 12,
+    id: 16,
+    name: 'Luxury Formal Collection',
+    price: 480,
+    image: '/jfcouture homme/imh12.jpg',
+    category: 'men',
+    badge: 'Premium',
+    rating: 4.9,
+    reviews: 26,
   },
   {
-    id: 8,
-    name: 'Traditional Kente Textile - Authentic',
-    price: 120,
-    image: '/lookbook_08.jpg',
-    category: 'accessories',
-    badge: null,
+    id: 17,
+    name: 'Executive Style Blazer',
+    price: 320,
+    image: '/jfcouture homme/imh13.jpg',
+    category: 'men',
+    badge: 'New',
     rating: 4.8,
-    reviews: 56,
+    reviews: 20,
+  },
+  {
+    id: 18,
+    name: 'Traditional Formal Wear',
+    price: 400,
+    image: '/jfcouture homme/imh15.jpg',
+    category: 'men',
+    badge: null,
+    rating: 4.7,
+    reviews: 24,
+  },
+  {
+    id: 19,
+    name: 'Modern Business Attire',
+    price: 360,
+    originalPrice: 450,
+    image: '/jfcouture homme/imh16.jpg',
+    category: 'men',
+    badge: 'Sale',
+    rating: 4.8,
+    reviews: 32,
+  },
+  {
+    id: 20,
+    name: 'Sophisticated Evening Wear',
+    price: 420,
+    image: '/jfcouture homme/imh18.jpg',
+    category: 'men',
+    badge: 'New',
+    rating: 5.0,
+    reviews: 15,
+  },
+  // Couples Collection (2 photos)
+  {
+    id: 21,
+    name: 'Romantic Couple Set - Wedding Collection',
+    price: 850,
+    originalPrice: 1000,
+    image: '/couple/couple.jpg',
+    category: 'couples',
+    badge: 'Best Seller',
+    rating: 5.0,
+    reviews: 45,
+  },
+  {
+    id: 22,
+    name: 'Matching Formal Attire - Special Edition',
+    price: 720,
+    image: '/couple/couple1.jpg',
+    category: 'couples',
+    badge: 'Premium',
+    rating: 4.9,
+    reviews: 38,
   },
 ];
 
@@ -112,6 +261,26 @@ const Collections = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [wishlist, setWishlist] = useState<number[]>([]);
   const [showSortDropdown, setShowSortDropdown] = useState(false);
+  const [viewCounts, setViewCounts] = useState<Record<number, number>>({});
+  const { addItem } = useCart();
+  const navigate = useNavigate();
+
+  // Load view counts from localStorage on mount
+  useEffect(() => {
+    const savedViews = localStorage.getItem('justyfashion_product_views');
+    if (savedViews) {
+      try {
+        setViewCounts(JSON.parse(savedViews));
+      } catch (error) {
+        console.error('Error loading view counts:', error);
+      }
+    }
+  }, []);
+
+  // Save view counts to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('justyfashion_product_views', JSON.stringify(viewCounts));
+  }, [viewCounts]);
 
   const filteredProducts = activeCategory === 'all'
     ? products
@@ -131,9 +300,45 @@ const Collections = () => {
   });
 
   const toggleWishlist = (id: number) => {
-    setWishlist(prev => 
+    setWishlist(prev =>
       prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
     );
+  };
+
+  const handleViewProduct = (product: typeof products[0]) => {
+    // Increment view count
+    setViewCounts(prev => ({
+      ...prev,
+      [product.id]: (prev[product.id] || 0) + 1
+    }));
+
+    // Show toast with view count
+    const newViewCount = (viewCounts[product.id] || 0) + 1;
+    toast.success('Product Viewed!', {
+      description: `${product.name} - ${newViewCount} view${newViewCount !== 1 ? 's' : ''}`,
+    });
+  };
+
+  const handleAddToCart = (product: typeof products[0]) => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      size: 'M', // Default size
+      color: 'Standard', // Default color
+      category: product.category,
+    });
+
+    // Show success notification and redirect to cart
+    toast.success('Added to Cart!', {
+      description: `${product.name} has been added to your cart. Redirecting...`,
+    });
+
+    // Redirect to cart page after short delay
+    setTimeout(() => {
+      navigate('/cart');
+    }, 1000);
   };
 
   return (
@@ -279,15 +484,26 @@ const Collections = () => {
                   >
                     <Heart className={`w-4 h-4 ${wishlist.includes(product.id) ? 'fill-current' : ''}`} />
                   </button>
-                  <button className="w-9 h-9 bg-white/90 hover:bg-white flex items-center justify-center transition-colors">
+                  <button
+                    onClick={() => handleViewProduct(product)}
+                    className="w-9 h-9 bg-white/90 hover:bg-white flex items-center justify-center transition-colors relative"
+                  >
                     <Eye className="w-4 h-4" />
+                    {viewCounts[product.id] && (
+                      <span className="absolute -top-1 -right-1 bg-[#FF6B00] text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                        {viewCounts[product.id] > 9 ? '9+' : viewCounts[product.id]}
+                      </span>
+                    )}
                   </button>
                 </div>
 
                 {/* Add to cart - Grid view only */}
                 {viewMode === 'grid' && (
                   <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <Button className="w-full bg-[#FF6B00] hover:bg-[#E55A00] text-white text-xs uppercase">
+                    <Button
+                      onClick={() => handleAddToCart(product)}
+                      className="w-full bg-[#FF6B00] hover:bg-[#E55A00] text-white text-xs uppercase"
+                    >
                       Add to Cart
                     </Button>
                   </div>
@@ -330,7 +546,10 @@ const Collections = () => {
 
                 {/* Add to cart - List view */}
                 {viewMode === 'list' && (
-                  <Button className="mt-4 bg-[#FF6B00] hover:bg-[#E55A00] text-white">
+                  <Button
+                    onClick={() => handleAddToCart(product)}
+                    className="mt-4 bg-[#FF6B00] hover:bg-[#E55A00] text-white"
+                  >
                     Add to Cart
                   </Button>
                 )}

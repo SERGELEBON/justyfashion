@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ShoppingBag, Sun, Moon, Menu, X } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useCart } from '@/contexts/CartContext';
 
 const navItems = [
   { label: 'Home', href: '/' },
@@ -15,6 +16,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const { itemCount } = useCart();
   const location = useLocation();
 
   useEffect(() => {
@@ -94,9 +96,11 @@ const Header = () => {
                 className="relative p-2 hover:bg-secondary rounded-full transition-colors"
               >
                 <ShoppingBag className="w-5 h-5" />
-                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#FF6B00] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-                  0
-                </span>
+                {itemCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#FF6B00] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                    {itemCount}
+                  </span>
+                )}
               </Link>
 
               {/* Mobile menu button */}

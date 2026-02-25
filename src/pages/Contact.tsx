@@ -46,22 +46,39 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    toast.success('Message Sent!', {
-      description: 'We\'ll get back to you within 48 hours.',
-    });
-    
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: '',
-    });
-    setIsSubmitting(false);
+
+    // Create email body
+    const emailBody = `
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone || 'Not provided'}
+Subject: ${formData.subject}
+
+Message:
+${formData.message}
+    `.trim();
+
+    // Create mailto link
+    const mailtoLink = `mailto:justyfashion1@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(emailBody)}`;
+
+    // Open email client
+    window.location.href = mailtoLink;
+
+    // Show success message after a short delay
+    setTimeout(() => {
+      toast.success('Email Client Opened!', {
+        description: 'Please send the email from your email client.',
+      });
+
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: '',
+      });
+      setIsSubmitting(false);
+    }, 500);
   };
 
   return (

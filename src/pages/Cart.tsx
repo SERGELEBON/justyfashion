@@ -1,56 +1,18 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Minus, Plus, X, ArrowLeft, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-
-// Sample cart data
-const initialCartItems = [
-  {
-    id: 1,
-    name: 'African Print Maxi Dress - Royal Collection',
-    price: 180,
-    image: '/lookbook_01.jpg',
-    quantity: 2,
-    size: 'M',
-    color: 'Royal Blue'
-  },
-  {
-    id: 2,
-    name: 'Heritage Kente Suit - Premium Edition',
-    price: 320,
-    image: '/lookbook_02.jpg',
-    quantity: 1,
-    size: 'L',
-    color: 'Traditional'
-  }
-];
+import { useCart } from '@/contexts/CartContext';
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState(initialCartItems);
+  const { items, updateQuantity, removeItem, total, itemCount } = useCart();
 
-  const updateQuantity = (id: number, newQuantity: number) => {
-    if (newQuantity <= 0) {
-      removeItem(id);
-      return;
-    }
-    setCartItems(items =>
-      items.map(item =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
-  };
-
-  const removeItem = (id: number) => {
-    setCartItems(items => items.filter(item => item.id !== id));
-  };
-
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = subtotal > 200 ? 0 : 25;
   const tax = subtotal * 0.1;
-  const total = subtotal + shipping + tax;
+  const finalTotal = subtotal + shipping + tax;
 
-  if (cartItems.length === 0) {
+  if (items.length === 0) {
     return (
       <div className="min-h-screen py-16">
         <div className="container mx-auto px-4">
@@ -87,7 +49,7 @@ const Cart = () => {
           <div>
             <h1 className="text-3xl font-bold">Shopping Cart</h1>
             <p className="text-muted-foreground">
-              {cartItems.length} item{cartItems.length !== 1 ? 's' : ''} in your cart
+              {items.length} item{items.length !== 1 ? 's' : ''} in your cart
             </p>
           </div>
         </div>
@@ -96,7 +58,7 @@ const Cart = () => {
           {/* Cart Items */}
           <div className="lg:col-span-2">
             <div className="space-y-4">
-              {cartItems.map((item) => (
+              {items.map((item) => (
                 <Card key={item.id}>
                   <CardContent className="p-6">
                     <div className="flex gap-4">
@@ -200,7 +162,7 @@ const Cart = () => {
                   <div className="border-t pt-4">
                     <div className="flex justify-between text-lg font-bold">
                       <span>Total</span>
-                      <span>GHC {total.toFixed(2)}</span>
+                      <span>GHC {finalTotal.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
